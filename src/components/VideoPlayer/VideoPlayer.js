@@ -3,7 +3,7 @@ import './VideoPlayer.css';
 
 const VideoPlayer = () => (
     <div className="VideoPlayer" data-testid="VideoPlayer">
-        VideoPlayer Component
+        a
     </div>
 );
 
