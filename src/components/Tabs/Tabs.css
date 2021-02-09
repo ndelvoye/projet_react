@@ -2,3 +2,26 @@
     background-color: black;
     padding-left: 2vh;
 }
+
+.tab-list {
+    margin-top: 0;
+    border-bottom: 1px solid #ccc;
+    padding-left: 0;
+}
+
+.tab-list-item {
+    display: inline-block;
+    list-style: none;
+    margin-bottom: -1px;
+    padding: 0.5rem 0.75rem;
+    cursor: pointer;
+    user-select: none;
+}
+
+.tab-list-active {
+    cursor: default;
+    color: black;
+    background-color: white;
+    border: solid black;
+    border-width: 1px 1px 0 1px;
+}

@@ -5,10 +5,10 @@ import VideoPlayer from './VideoPlayer';
 
 describe('<VideoPlayer />', () => {
   test('it should mount', () => {
-    render(<VideoPlayer/>);
+      render(<VideoPlayer/>);
 
-    const videoPlayer = screen.getByTestId('VideoPlayer');
+      const videoPlayer = screen.getByTestId('VideoPlayer');
 
-    expect(videoPlayer).toBeInTheDocument();
+      expect(videoPlayer).toBeInTheDocument();
   });
 });
