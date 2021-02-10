@@ -11,8 +11,9 @@ body {
 
 .header {
     padding: 2vh 3vh;
-    width: 100vh;
     user-select: none;
+    display: flex;
+    align-items: center;
 }
 
 #logo {
@@ -23,10 +24,9 @@ body {
 
 .content {
     display: flex;
-    flex: 3 1 100%;
     justify-content: space-between;
 }
 
-.VideoPlayer {
-    border: 2px solid red;
+.tabs {
+    flex: 30%;
 }

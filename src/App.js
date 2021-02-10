@@ -11,11 +11,11 @@ function App() {
         <div className='app'>
             <div className='header'>
                 <img id="logo" alt="Logo IMRStreaming" src="img/logo.png"/>
-                Votre nouvelle plateforme de streaming
+                <div id="headerText">Votre nouvelle plateforme de streaming</div>
             </div>
             <div className='content'>
                 <VideoPlayer/>
-                <Tabs>
+                <Tabs id='tabs'>
                     <div label="Chapters">
                         <VideoChapters/>
                     </div>
