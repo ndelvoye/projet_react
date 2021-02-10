@@ -5,7 +5,7 @@ class ChatBox extends React.Component {
     constructor(props, context) {
         super(props, context);
         this.state = {
-            ws: null,
+            name: "monNom",
             messageToSend: ""
         }
     }
@@ -25,7 +25,7 @@ class ChatBox extends React.Component {
                         action="."
                         onSubmit={e => {
                             e.preventDefault()
-                            this.onSubmitMessage()
+                            this.sendMessageOnWS()
                             this.setState({messageToSend: ''})
                         }}
                     >
@@ -42,9 +42,9 @@ class ChatBox extends React.Component {
         )
     }
 
-    onSubmitMessage() {
+    sendMessageOnWS() {
         const message = {name: this.state.name, message: this.state.messageToSend};
-        this.state.ws.send(JSON.stringify(message));
+        this.props.ws.send(JSON.stringify(message));
     }
 }
 
