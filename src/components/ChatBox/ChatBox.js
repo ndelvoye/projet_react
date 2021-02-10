@@ -2,47 +2,12 @@ import React from 'react';
 import './ChatBox.css';
 
 class ChatBox extends React.Component {
-    URL = "wss://imr3-react.herokuapp.com";
-    ws = new WebSocket(this.URL);
-
     constructor(props, context) {
         super(props, context);
         this.state = {
-            connected: false,
-            messageToSend: "",
-            messages: [],
-            messageFields: ["when", "name", "message", "moment"]
+            ws: null,
+            messageToSend: ""
         }
-        this.add = this.add.bind(this);
-    }
-
-    componentDidMount() {
-        this.ws.onopen = () => {
-            console.log("connected");
-            this.setState({
-                connected: true
-            });
-        };
-
-        this.ws.onmessage = evt => {
-            const messages = JSON.parse(evt.data);
-            console.log(messages)
-            messages.map(message => this.add(message));
-        };
-
-        this.ws.onclose = () => {
-            console.log("disconnected, reconnect.");
-            this.setState({
-                connected: false,
-                ws: new WebSocket(this.URL)
-            });
-        };
-    }
-
-    add(message) {
-        this.setState({
-            messages: this.state.messages.concat(message)
-        })
     }
 
     render() {
@@ -50,7 +15,7 @@ class ChatBox extends React.Component {
             <div className="ChatBox" data-testid="ChatBox">
                 <div id="messages">
                     <ul>
-                        {this.state.messages.map((message) => (
+                        {this.props.messages.map((message) => (
                             <li key={message.when}><span>{message.name}</span> {message.message}</li>
                         ))}
                     </ul>
@@ -79,7 +44,7 @@ class ChatBox extends React.Component {
 
     onSubmitMessage() {
         const message = {name: this.state.name, message: this.state.messageToSend};
-        this.ws.send(JSON.stringify(message));
+        this.state.ws.send(JSON.stringify(message));
     }
 }
 
