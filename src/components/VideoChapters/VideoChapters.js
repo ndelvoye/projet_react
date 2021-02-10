@@ -1,14 +1,14 @@
 import React from 'react';
 import './VideoChapters.css';
 
-const VideoChapters = () => (
-    <div className="VideoChapters" data-testid="VideoChapters">
-        VideoChapters Component
-    </div>
-);
-
-VideoChapters.propTypes = {};
-
-VideoChapters.defaultProps = {};
+export class VideoChapters extends React.Component {
+    render() {
+        return (
+            <div className="VideoChapters" data-testid="VideoChapters">
+                VideoChapters Component
+            </div>
+        )
+    }
+}
 
 export default VideoChapters;

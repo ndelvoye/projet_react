@@ -1,14 +1,14 @@
 import React from 'react';
 import './Map.css';
 
-const Map = () => (
-    <div className="Map" data-testid="Map">
-        Map Component
-    </div>
-);
-
-Map.propTypes = {};
-
-Map.defaultProps = {};
+class Map extends React.Component {
+    render() {
+        return (
+            <div className="Map" data-testid="Map">
+                Map Component
+            </div>
+        )
+    }
+}
 
 export default Map;

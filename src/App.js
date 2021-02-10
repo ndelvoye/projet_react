@@ -2,9 +2,9 @@ import React from 'react';
 import Tabs from "./components/Tabs/Tabs";
 import './App.css';
 import VideoChapters from "./components/VideoChapters/VideoChapters";
-import ChatBox from "./components/ChatBox/ChatBox";
 import Map from "./components/Map/Map";
 import VideoPlayer from "./components/VideoPlayer/VideoPlayer";
+import ChatBox from "./components/ChatBox/ChatBox";
 
 function App() {
     return (
