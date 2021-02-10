@@ -15,8 +15,8 @@ class ChatBox extends React.Component {
             <div className="ChatBox" data-testid="ChatBox">
                 <div id="messages">
                     <ul>
-                        {this.props.messages.map((message) => (
-                            <li key={message.when}><span>{message.name}</span> {message.message}</li>
+                        {this.props.messages.map((message, index) => (
+                            <li key={index + message.message}><span>{message.name}</span> {message.message}</li>
                         ))}
                     </ul>
                 </div>

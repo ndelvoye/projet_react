@@ -14,6 +14,11 @@ export class App extends React.Component {
     constructor(props, context) {
         super(props, context);
         this.state = {
+            // API
+            data_loaded: false,
+            chapters: [],
+            chapterFields: ["pos", "title"],
+            // WS
             connected: false,
             messages: [],
             messageFields: ["when", "name", "message", "moment"]
@@ -24,7 +29,7 @@ export class App extends React.Component {
         // API Back-End call
         fetch(this.apiUrl)
             .then((response) => response.json())
-            .then((data) => console.log('This is your data', data));
+            .then((data) => this.setState({chapters: data.Chapters}));
 
         // WebSocket calls & events
         this.ws.onopen = () => {
@@ -63,7 +68,7 @@ export class App extends React.Component {
                     <VideoPlayer/>
                     <Tabs id='tabs'>
                         <div label="Chapters">
-                            <VideoChapters/>
+                            <VideoChapters chapters={this.state.chapters}/>
                         </div>
                         <div label="Map">
                             <Map/>

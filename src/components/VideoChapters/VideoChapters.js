@@ -5,7 +5,11 @@ export class VideoChapters extends React.Component {
     render() {
         return (
             <div className="VideoChapters" data-testid="VideoChapters">
-                VideoChapters Component
+                <ul>
+                    {this.props.chapters.map(chapter => (
+                        <li key={chapter.pos + chapter.title}>{chapter.pos} {chapter.title}</li>
+                    ))}
+                </ul>
             </div>
         )
     }
