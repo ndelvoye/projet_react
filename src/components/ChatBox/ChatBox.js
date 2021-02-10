@@ -6,7 +6,8 @@ class ChatBox extends React.Component {
         super(props, context);
         this.state = {
             name: "monNom",
-            messageToSend: ""
+            messageToSend: "",
+            moment: 0
         }
     }
 
@@ -16,7 +17,11 @@ class ChatBox extends React.Component {
                 <div id="messages">
                     <ul>
                         {this.props.messages.map((message, index) => (
-                            <li key={index + message.message}><span>{message.name}</span> {message.message}</li>
+                            <li key={index + message.message}>
+                                <div className='msgAuthor'>{message.name}</div>
+                                <div className='msgContent'>{message.message}</div>
+                                {message.moment !== null && <div className='msgMoment'>{message.moment}</div>}
+                            </li>
                         ))}
                     </ul>
                 </div>
@@ -43,7 +48,11 @@ class ChatBox extends React.Component {
     }
 
     sendMessageOnWS() {
-        const message = {name: this.state.name, message: this.state.messageToSend};
+        const message = {
+            name: this.state.name,
+            message: this.state.messageToSend,
+            moment: this.state.moment
+        };
         this.props.ws.send(JSON.stringify(message));
     }
 }

@@ -1,4 +1,5 @@
 @import '~video-react/dist/video-react.css';
 
 .VideoPlayer {
+    max-height: 75vh;
 }

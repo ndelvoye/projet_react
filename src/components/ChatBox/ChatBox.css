@@ -1,4 +1,6 @@
 .ChatBox {
+    max-height: 75vh;
+    overflow-x: hidden;
 }
 
 ul {
@@ -6,6 +8,22 @@ ul {
     padding-left: 0;
 }
 
-span {
+#messages {
+    display: inline-block;
+}
+
+.msgAuthor, .msgContent, .msgMoment {
+    display: inline-block;
+}
+
+.msgAuthor {
     font-weight: bold;
+    padding-right: 1vw;
+}
+
+.msgMoment {
+    font-weight: bold;
+    cursor: pointer;
+    color: blue;
+    padding-left: 1vw;
 }
