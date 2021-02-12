@@ -1,12 +1,18 @@
 .VideoChapters {
-    white-space: nowrap;
+}
+
+li {
+    display: flex;
+    flex-direction: row;
+    padding-left: 1vw;
 }
 
 .chapterTimeStamp {
-    display: inline-block;
-    white-space: nowrap;
-    padding-left: 1vw;
     color: dodgerblue;
     font-weight: bold;
     cursor: pointer;
+}
+
+.chapterTitle {
+    padding-left: 10px;
 }

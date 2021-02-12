@@ -34,28 +34,9 @@ export class App extends React.Component {
             .then((data) => {
                 let chaptersCopy = data.Chapters;
                 chaptersCopy.forEach(chapter => {
-                    const fullTimestamp = chapter.pos;
-                    switch (fullTimestamp.length) {
-                        case 1:
-                        case 2:
-                            chapter.posSecondes = fullTimestamp.substr(0, 2);
-                            break;
-                        case 3:
-                        case 4:
-                            chapter.posMinutes = fullTimestamp.substr(0, 2);
-                            chapter.posSecondes = fullTimestamp.substr(fullTimestamp.length - 2, 2);
-                            break;
-                        case 5:
-                        case 6:
-                            chapter.posHeures = fullTimestamp.substr(0, 2);
-                            chapter.posMinutes = fullTimestamp.substr(fullTimestamp.length - 4, 2);
-                            chapter.posSecondes = fullTimestamp.substr(fullTimestamp.length - 2, 2);
-                            break;
-                        default:
-                            console.error('Impossible case.');
-                            break;
-                    }
+                    chapter.timestamp = new Date(chapter.pos * 1000).toISOString().substr(11, 8)
                 })
+                console.table(chaptersCopy);
                 this.setState({
                     dataLoaded: true,
                     fileTitle: data.Film.file_title,
