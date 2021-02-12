@@ -14,6 +14,7 @@ export class App extends React.Component {
     constructor(props, context) {
         super(props, context);
         this.state = {
+            timestamp: 0,
             // API
             dataLoaded: false,
             fileTitle: "",
@@ -27,6 +28,10 @@ export class App extends React.Component {
         }
     }
 
+    handleClick(timestamp) {
+        this.setState({timestamp: timestamp});
+    }
+
     componentDidMount() {
         // API Back-End call
         fetch(this.apiUrl)
@@ -34,7 +39,7 @@ export class App extends React.Component {
             .then((data) => {
                 let chaptersCopy = data.Chapters;
                 chaptersCopy.forEach(chapter => {
-                    chapter.timestamp = new Date(chapter.pos * 1000).toISOString().substr(11, 8)
+                    chapter.formattedTimestamp = new Date(chapter.pos * 1000).toISOString().substr(11, 8)
                 })
                 this.setState({
                     dataLoaded: true,
@@ -78,10 +83,11 @@ export class App extends React.Component {
                     <div id="headerText">Votre nouvelle plateforme de streaming</div>
                 </div>
                 <div className='content'>
-                    <VideoPlayer/>
+                    <VideoPlayer timestamp={this.state.timestamp}/>
                     <Tabs id='tabs'>
                         <div label="Chapters">
-                            <VideoChapters chapters={this.state.chapters}/>
+                            <VideoChapters chapters={this.state.chapters}
+                                           onClick={this.handleClick.bind(this)}/>
                         </div>
                         <div label="Map">
                             <Map/>
