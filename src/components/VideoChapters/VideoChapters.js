@@ -7,7 +7,17 @@ export class VideoChapters extends React.Component {
             <div className="VideoChapters" data-testid="VideoChapters">
                 <ul>
                     {this.props.chapters.map(chapter => (
-                        <li key={chapter.pos + chapter.title}>{chapter.pos} {chapter.title}</li>
+                        <li key={chapter.posHeures + chapter.posMinutes + chapter.posSecondes + chapter.title}>
+                            <div className="chapterTimeStamp">
+                                {chapter.posHeures &&
+                                <div>{chapter.posHeures}h </div>}
+                                {chapter.posMinutes &&
+                                <div>{chapter.posMinutes}m </div>}
+                                {chapter.posSecondes &&
+                                <div>{chapter.posSecondes}s </div>}
+                            </div>
+                            — {chapter.title}
+                        </li>
                     ))}
                 </ul>
             </div>

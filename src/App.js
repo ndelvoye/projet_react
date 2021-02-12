@@ -15,7 +15,9 @@ export class App extends React.Component {
         super(props, context);
         this.state = {
             // API
-            data_loaded: false,
+            dataLoaded: false,
+            fileTitle: "",
+            synopsisUrl: "",
             chapters: [],
             chapterFields: ["pos", "title"],
             // WS
@@ -29,7 +31,38 @@ export class App extends React.Component {
         // API Back-End call
         fetch(this.apiUrl)
             .then((response) => response.json())
-            .then((data) => this.setState({chapters: data.Chapters}));
+            .then((data) => {
+                let chaptersCopy = data.Chapters;
+                chaptersCopy.forEach(chapter => {
+                    const fullTimestamp = chapter.pos;
+                    switch (fullTimestamp.length) {
+                        case 1:
+                        case 2:
+                            chapter.posSecondes = fullTimestamp.substr(0, 2);
+                            break;
+                        case 3:
+                        case 4:
+                            chapter.posMinutes = fullTimestamp.substr(0, 2);
+                            chapter.posSecondes = fullTimestamp.substr(fullTimestamp.length - 2, 2);
+                            break;
+                        case 5:
+                        case 6:
+                            chapter.posHeures = fullTimestamp.substr(0, 2);
+                            chapter.posMinutes = fullTimestamp.substr(fullTimestamp.length - 4, 2);
+                            chapter.posSecondes = fullTimestamp.substr(fullTimestamp.length - 2, 2);
+                            break;
+                        default:
+                            console.error('Impossible case.');
+                            break;
+                    }
+                })
+                this.setState({
+                    dataLoaded: true,
+                    fileTitle: data.Film.file_title,
+                    synopsisUrl: data.Film.synopsis_url,
+                    chapters: chaptersCopy
+                })
+            });
 
         // WebSocket calls & events
         this.ws.onopen = () => {

@@ -1,6 +1,9 @@
 .ChatBox {
-    max-height: 75vh;
-    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 85vh;
+    overflow-y: scroll;
 }
 
 ul {
@@ -9,7 +12,7 @@ ul {
 }
 
 #messages {
-    display: inline-block;
+    flex-direction: column;
 }
 
 .msgAuthor, .msgContent, .msgMoment {
@@ -19,11 +22,16 @@ ul {
 .msgAuthor {
     font-weight: bold;
     padding-right: 1vw;
+    color: aquamarine;
 }
 
 .msgMoment {
-    font-weight: bold;
+    font-style: italic;
     cursor: pointer;
-    color: blue;
+    color: dodgerblue;
     padding-left: 1vw;
+}
+
+#messageToSend {
+    align-content: flex-end;
 }

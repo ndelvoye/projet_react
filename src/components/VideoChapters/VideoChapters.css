@@ -1,2 +1,12 @@
 .VideoChapters {
+    white-space: nowrap;
+}
+
+.chapterTimeStamp {
+    display: inline-block;
+    white-space: nowrap;
+    padding-left: 1vw;
+    color: dodgerblue;
+    font-weight: bold;
+    cursor: pointer;
 }
