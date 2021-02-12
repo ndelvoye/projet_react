@@ -1,7 +1,4 @@
 .ChatBox {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
     height: 85vh;
     overflow-y: scroll;
 }
@@ -11,12 +8,9 @@ ul {
     padding-left: 0;
 }
 
-#messages {
-    flex-direction: column;
-}
+li {
 
-.msgAuthor, .msgContent, .msgMoment {
-    display: inline-block;
+    display: flex;
 }
 
 .msgAuthor {

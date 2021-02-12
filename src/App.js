@@ -36,7 +36,6 @@ export class App extends React.Component {
                 chaptersCopy.forEach(chapter => {
                     chapter.timestamp = new Date(chapter.pos * 1000).toISOString().substr(11, 8)
                 })
-                console.table(chaptersCopy);
                 this.setState({
                     dataLoaded: true,
                     fileTitle: data.Film.file_title,

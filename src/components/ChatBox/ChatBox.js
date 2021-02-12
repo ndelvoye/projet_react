@@ -7,7 +7,7 @@ class ChatBox extends React.Component {
         this.state = {
             senderName: "",
             messageToSend: "",
-            momentToShare: null
+            momentToShare: undefined
         }
     }
     render() {
