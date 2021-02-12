@@ -12,19 +12,27 @@ export class VideoChapters extends React.Component {
     }
 
     render() {
-        return (
-            <div className="VideoChapters" data-testid="VideoChapters">
-                <ul>
-                    {this.props.chapters.map(chapter => (
-                        <li key={chapter.pos + chapter.title}
-                            onClick={() => this.handleClick(chapter.pos)}>
-                            <div className="chapterTimestamp">{chapter.formattedTimestamp}</div>
-                            <div className="chapterTitle">{chapter.title}</div>
-                        </li>
-                    ))}
-                </ul>
-            </div>
-        )
+        if (this.props.dataLoaded) {
+            return (
+                <div className="VideoChapters" data-testid="VideoChapters">
+                    <ul>
+                        {this.props.chapters.map(chapter => (
+                            <li key={chapter.pos + chapter.title}
+                                onClick={() => this.handleClick(chapter.pos)}>
+                                <div className="chapterTimestamp">{chapter.formattedTimestamp}</div>
+                                <div className="chapterTitle">{chapter.title}</div>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            )
+        } else {
+            return (
+                <div className="VideoChapters" data-testid="VideoChapters">
+                    <p>Loading chapters...</p>
+                </div>
+            )
+        }
     }
 }
 

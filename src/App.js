@@ -15,13 +15,20 @@ export class App extends React.Component {
     constructor(props, context) {
         super(props, context);
         this.state = {
+            // Player
             timestamp: 0,
+
             // API
             dataLoaded: false,
-            fileTitle: "",
+            filmTitle: "a",
             synopsisUrl: "",
             chapters: [],
             chapterFields: ["pos", "title"],
+            waypoints: [],
+            waypointsFields: ["lat", "lng", "label", "timestamp"],
+            keywords: [],
+            keywordsFields: ["pos", "data"],
+
             // WS
             connected: false,
             messages: [],
@@ -38,15 +45,17 @@ export class App extends React.Component {
         fetch(this.apiUrl)
             .then((response) => response.json())
             .then((data) => {
-                let chaptersCopy = data.Chapters;
-                chaptersCopy.forEach(chapter => {
+                // On ajoute un champ "formattedTimestamp" qui sera affiché côté front
+                data.Chapters.forEach(chapter => {
                     chapter.formattedTimestamp = new Date(chapter.pos * 1000).toISOString().substr(11, 8)
                 })
                 this.setState({
                     dataLoaded: true,
-                    fileTitle: data.Film.file_title,
+                    filmTitle: data.Film.title,
                     synopsisUrl: data.Film.synopsis_url,
-                    chapters: chaptersCopy
+                    chapters: data.Chapters,
+                    waypoints: data.Waypoints,
+                    keywords: data.Keywords,
                 })
             });
 
@@ -86,11 +95,12 @@ export class App extends React.Component {
                 <div className='content'>
                     <div className='video'>
                         <VideoPlayer timestamp={this.state.timestamp}/>
-                        <UnderVideo/>
+                        <UnderVideo filmTitle={this.state.filmTitle}/>
                     </div>
                     <Tabs id='tabs'>
                         <div label="Chapters">
-                            <VideoChapters chapters={this.state.chapters}
+                            <VideoChapters dataLoaded={this.state.dataLoaded}
+                                           chapters={this.state.chapters}
                                            onClick={this.handleClick.bind(this)}/>
                         </div>
                         <div label="Map">
