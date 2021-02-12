@@ -2,6 +2,7 @@ import React from 'react';
 import Tabs from "./components/Tabs/Tabs";
 import './App.css';
 import VideoChapters from "./components/VideoChapters/VideoChapters";
+import UnderVideo from "./components/VideoInfos/UnderVideo";
 import Map from "./components/Map/Map";
 import VideoPlayer from "./components/VideoPlayer/VideoPlayer";
 import ChatBox from "./components/ChatBox/ChatBox";
@@ -83,7 +84,10 @@ export class App extends React.Component {
                     <div id="headerText">Votre nouvelle plateforme de streaming</div>
                 </div>
                 <div className='content'>
-                    <VideoPlayer timestamp={this.state.timestamp}/>
+                    <div className='video'>
+                        <VideoPlayer timestamp={this.state.timestamp}/>
+                        <UnderVideo/>
+                    </div>
                     <Tabs id='tabs'>
                         <div label="Chapters">
                             <VideoChapters chapters={this.state.chapters}
