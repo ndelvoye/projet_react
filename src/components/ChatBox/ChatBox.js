@@ -1,7 +1,12 @@
 import React from 'react';
 import './ChatBox.css';
+import * as PropTypes from "prop-types";
 
 class ChatBox extends React.Component {
+    static propTypes = {
+        onClick: PropTypes.func.isRequired
+    };
+
     constructor(props, context) {
         super(props, context);
         this.state = {
@@ -10,6 +15,11 @@ class ChatBox extends React.Component {
             momentToShare: undefined
         }
     }
+
+    handleClick(desiredTimestamp) {
+        this.props.onClick(desiredTimestamp);
+    }
+
     render() {
         return (
             <div className="ChatBox" data-testid="ChatBox">
@@ -20,7 +30,10 @@ class ChatBox extends React.Component {
                                 <div className='msgAuthor'>{message.name}</div>
                                 <div className='msgContent'>{message.message}</div>
                                 {message.moment !== null && isFinite(message.moment) &&
-                                <div className='msgMoment'>Go to {message.moment}</div>}
+                                <div className='msgMoment'
+                                     onClick={() => this.handleClick(message.moment)}>
+                                    Go to {message.moment}
+                                </div>}
                             </li>
                         ))}
                     </ul>

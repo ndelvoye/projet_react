@@ -93,7 +93,9 @@ export class App extends React.Component {
                             <Map/>
                         </div>
                         <div label="Chat">
-                            <ChatBox ws={this.ws} messages={this.state.messages}/>
+                            <ChatBox ws={this.ws}
+                                     messages={this.state.messages}
+                                     onClick={this.handleClick.bind(this)}/>
                         </div>
                     </Tabs>
                 </div>
