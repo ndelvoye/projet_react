@@ -8,14 +8,13 @@ import VideoPlayer from "./components/VideoPlayer/VideoPlayer";
 import ChatBox from "./components/ChatBox/ChatBox";
 
 export class App extends React.Component {
-    apiUrl = 'https://imr3-react.herokuapp.com/backend'
     wsURL = "wss://imr3-react.herokuapp.com";
     ws = new WebSocket(this.wsURL);
 
     constructor(props, context) {
         super(props, context);
         this.state = {
-            // Player
+            // Video Player
             timestamp: 0,
 
             // API
@@ -42,7 +41,7 @@ export class App extends React.Component {
 
     componentDidMount() {
         // API Back-End call
-        fetch(this.apiUrl)
+        fetch('https://imr3-react.herokuapp.com/backend')
             .then((response) => response.json())
             .then((data) => {
                 // On ajoute un champ "formattedTimestamp" qui sera affiché côté front

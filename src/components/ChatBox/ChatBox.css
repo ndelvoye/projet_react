@@ -1,5 +1,5 @@
 .ChatBox {
-    height: 85vh;
+    padding-left: 1vw;
     overflow-y: scroll;
 }
 
@@ -9,8 +9,11 @@ ul {
 }
 
 li {
-
     display: flex;
+}
+
+#messages {
+    height: 70vh;
 }
 
 .msgAuthor {
@@ -27,5 +30,6 @@ li {
 }
 
 #messageToSend {
-    align-content: flex-end;
+    margin-top: 1vh;
+    position: absolute;
 }
