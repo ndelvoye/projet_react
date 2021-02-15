@@ -6,7 +6,6 @@ import UnderVideo from "./components/VideoInfos/UnderVideo";
 import Map from "./components/Map/Map";
 import VideoPlayer from "./components/VideoPlayer/VideoPlayer";
 import ChatBox from "./components/ChatBox/ChatBox";
-import {animateScroll} from "react-scroll";
 
 export class App extends React.Component {
     wsURL = "wss://imr3-react.herokuapp.com";
@@ -16,13 +15,13 @@ export class App extends React.Component {
         super(props, context);
         this.state = {
             // Video Player
-            filmDuration: 100,
-            timestamp: 0,
+            currentTime: 0,
+            duration: undefined,
 
             // API
-            dataLoaded: false,
-            filmTitle: "a",
-            synopsisUrl: "",
+            isDataLoaded: false,
+            filmTitle: undefined,
+            synopsisUrl: undefined,
             chapters: [],
             chapterFields: ["pos", "title"],
             waypoints: [],
@@ -33,18 +32,11 @@ export class App extends React.Component {
             // WS
             connected: false,
             messages: [],
-            messageFields: ["when", "name", "message", "moment"]
+            messageFields: ["when", "name", "message", "moment"],
+
+            // Chat infos
+            sharingMoment: undefined
         }
-    }
-
-    handleClick(timestamp) {
-        this.setState({timestamp: timestamp});
-    }
-
-    scrollToBottom() {
-        animateScroll.scrollToBottom({
-            containerId: "messages"
-        });
     }
 
     componentDidMount() {
@@ -57,7 +49,7 @@ export class App extends React.Component {
                     chapter.formattedTimestamp = new Date(chapter.pos * 1000).toISOString().substr(11, 8)
                 })
                 this.setState({
-                    dataLoaded: true,
+                    isDataLoaded: true,
                     filmTitle: data.Film.title,
                     synopsisUrl: data.Film.synopsis_url,
                     chapters: data.Chapters,
@@ -92,6 +84,23 @@ export class App extends React.Component {
         };
     }
 
+    // Handling Functions
+    /**
+     * Change timestamp
+     * @param timestamp
+     */
+    handleChangeTimestamp = (timestamp) => {
+        this.setState({timestamp: timestamp});
+    }
+
+    /**
+     * Change sharingMoment
+     * @param timestamp
+     */
+    handleSendTimestamp = (timestamp) => {
+        this.setState({sharingMoment: timestamp});
+    }
+
     render() {
         return (
             <div className='app'>
@@ -101,26 +110,37 @@ export class App extends React.Component {
                 </div>
                 <div className='content'>
                     <div className='video'>
-                        <VideoPlayer timestamp={this.state.timestamp}/>
-                        <UnderVideo filmTitle={this.state.filmTitle} duration={this.state.filmDuration}/>
+                        <VideoPlayer timestamp={this.state.timestamp}
+                                     onChangeDuration={this.handleChangeTimestamp}
+                        />
+                        <UnderVideo filmTitle={this.state.filmTitle}
+                                    synopsisUrl={this.state.synopsisUrl}
+                                    currentTime={this.state.currentTime}
+                                    duration={this.state.duration}
+                                    onClick={this.handleSendTimestamp}
+                        />
                     </div>
                     <Tabs id='tabs'>
                         <div label="Chapters">
-                            <VideoChapters dataLoaded={this.state.dataLoaded}
+                            <VideoChapters isDataLoaded={this.state.isDataLoaded}
                                            chapters={this.state.chapters}
-                                           onClick={this.handleClick.bind(this)}/>
+                                           onClick={this.handleChangeTimestamp}
+                            />
                         </div>
                         <div label="Map">
                             <Map/>
                         </div>
                         <div label="Chat">
                             <ChatBox ws={this.ws}
+                                     isWsReady={this.state.connected}
                                      messages={this.state.messages}
-                                     onClick={this.handleClick.bind(this)}/>
+                                     onClick={this.handleChangeTimestamp}
+                            />
                         </div>
                     </Tabs>
                 </div>
             </div>)
     }
 }
+
 export default App;

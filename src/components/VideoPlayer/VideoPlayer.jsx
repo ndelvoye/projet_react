@@ -3,9 +3,20 @@ import './VideoPlayer.css';
 import {Player} from "video-react";
 
 class VideoPlayer extends React.Component {
+    constructor(props, context) {
+        super(props, context);
+
+        this.state = {
+            playerSource: 'https://ia801406.us.archive.org/32/items/Route_66_-_an_American_badDream/Route_66_-_an_American_badDream_512kb.mp4',
+            currentTime: 0
+        };
+        this.props.onChangeDuration(this.state.currentTime);
+    }
+
     componentDidUpdate(prevProps, prevState, snapshot) {
         this.player.seek(this.props.timestamp);
     }
+
 
     render() {
         return (
@@ -16,8 +27,7 @@ class VideoPlayer extends React.Component {
                     ref={player => {
                         this.player = player;
                     }}>
-                <source
-                    src='https://ia801406.us.archive.org/32/items/Route_66_-_an_American_badDream/Route_66_-_an_American_badDream_512kb.mp4'/>
+                <source src={this.state.playerSource}/>
             </Player>
         )
     }

@@ -4,15 +4,21 @@ import * as PropTypes from "prop-types";
 
 export class VideoChapters extends React.Component {
     static propTypes = {
+        isDataLoaded: PropTypes.bool.isRequired,
+        chapters: PropTypes.array.isRequired,
         onClick: PropTypes.func.isRequired
     };
 
+    /**
+     * Sends desiredTimestamp to App component
+     * @param desiredTimestamp
+     */
     handleClick(desiredTimestamp) {
         this.props.onClick(desiredTimestamp);
     }
 
     render() {
-        if (this.props.dataLoaded) {
+        if (this.props.isDataLoaded) {
             return (
                 <div className="VideoChapters" data-testid="VideoChapters">
                     <ul>
