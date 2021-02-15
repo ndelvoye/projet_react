@@ -12,8 +12,7 @@ export class App extends React.Component {
         super(props, context);
         this.state = {
             // Video Player
-            currentTime: 0,
-            duration: null,
+            currentTime: null,
 
             // API
             isDataLoaded: false,
@@ -59,7 +58,6 @@ export class App extends React.Component {
         this.connectToWS();
     }
 
-    // Handling Functions
     /**
      * Change timestamp
      * @param timestamp
@@ -69,11 +67,19 @@ export class App extends React.Component {
     }
 
     /**
-     * Change sharingMoment
-     * @param timestamp
+     * Change currentTime
+     * @param currentTime
      */
-    handleSendTimestamp = (timestamp) => {
-        this.setState({sharingMoment: timestamp});
+    handleChangeCurrentTime = (currentTime) => {
+        this.setState({currentTime: currentTime});
+    }
+
+    /**
+     * Change sharingMoment
+     * @param sharingMoment
+     */
+    handleChangeSharingMoment = (sharingMoment) => {
+        this.setState({sharingMoment: sharingMoment});
     }
 
     render() {
@@ -86,13 +92,12 @@ export class App extends React.Component {
                 <div className='content'>
                     <div className='video'>
                         <VideoPlayer timestamp={this.state.timestamp}
-                                     onChangeDuration={this.handleChangeTimestamp}
+                                     onChangeCurrentTime={this.handleChangeCurrentTime}
                         />
                         <UnderVideo filmTitle={this.state.filmTitle}
                                     synopsisUrl={this.state.synopsisUrl}
                                     currentTime={this.state.currentTime}
-                                    duration={this.state.duration}
-                                    onClick={this.handleSendTimestamp}
+                                    onClick={this.handleChangeSharingMoment}
                         />
                     </div>
                     <Tabs id='tabs'>

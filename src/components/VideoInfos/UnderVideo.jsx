@@ -7,8 +7,22 @@ export class UnderVideo extends React.Component {
         // Static attributes
         filmTitle: PropTypes.string,
         synopsisUrl: PropTypes.string,
-        duration: PropTypes.number,
+        onClick: PropTypes.func.isRequired,
+
+        // Dynamic attribute
+        currentTime: PropTypes.number
     };
+
+    /**
+     * Sends momentToShare to App component
+     * @param momentToShare
+     */
+    handleClick(momentToShare) {
+        if (this.props.currentTime) {
+            return;
+        }
+        this.props.onClick(this.props.currentTime);
+    }
 
     render() {
         return (
@@ -16,18 +30,12 @@ export class UnderVideo extends React.Component {
                 <h2>{this.props.filmTitle}</h2>
 
                 <h3>Current : {
-                    this.props.currentTime ?
-                        this.props.currentTime
+                    this.props.currentTime && this.props.currentTime > -1 ?
+                        new Date(this.props.currentTime * 1000).toISOString().substr(11, 8)
                         : "Loading..."
                 }</h3>
 
-                <h3>Total : {
-                    this.props.duration ?
-                        new Date(this.props.duration * 1000).toISOString().substr(11, 8)
-                        : "Loading..."
-                }</h3>
-
-                <button id='shareMoment'>Share this moment</button>
+                <button id='shareMoment' onClick={this.handleClick}>Share this moment</button>
             </div>
         );
     }
