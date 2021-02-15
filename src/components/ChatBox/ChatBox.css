@@ -1,19 +1,10 @@
 .ChatBox {
     padding-left: 1vw;
-    overflow-y: scroll;
 }
 
 ul {
     list-style: none;
     padding-left: 0;
-}
-
-li {
-    display: flex;
-}
-
-#messages {
-    height: 70vh;
 }
 
 .msgAuthor {
@@ -29,7 +20,6 @@ li {
     padding-left: 1vw;
 }
 
-#messageToSend {
-    margin-top: 1vh;
-    position: absolute;
+#messages {
+    overflow-y: scroll;
 }

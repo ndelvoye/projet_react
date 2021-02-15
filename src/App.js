@@ -6,6 +6,7 @@ import UnderVideo from "./components/VideoInfos/UnderVideo";
 import Map from "./components/Map/Map";
 import VideoPlayer from "./components/VideoPlayer/VideoPlayer";
 import ChatBox from "./components/ChatBox/ChatBox";
+import {animateScroll} from "react-scroll";
 
 export class App extends React.Component {
     wsURL = "wss://imr3-react.herokuapp.com";
@@ -15,6 +16,7 @@ export class App extends React.Component {
         super(props, context);
         this.state = {
             // Video Player
+            filmDuration: 100,
             timestamp: 0,
 
             // API
@@ -37,6 +39,12 @@ export class App extends React.Component {
 
     handleClick(timestamp) {
         this.setState({timestamp: timestamp});
+    }
+
+    scrollToBottom() {
+        animateScroll.scrollToBottom({
+            containerId: "messages"
+        });
     }
 
     componentDidMount() {
@@ -71,7 +79,7 @@ export class App extends React.Component {
             messages.map(message => (
                 this.setState({
                     messages: this.state.messages.concat(message)
-                })
+                }, this.scrollToBottom)
             ));
         }
 
@@ -94,7 +102,7 @@ export class App extends React.Component {
                 <div className='content'>
                     <div className='video'>
                         <VideoPlayer timestamp={this.state.timestamp}/>
-                        <UnderVideo filmTitle={this.state.filmTitle}/>
+                        <UnderVideo filmTitle={this.state.filmTitle} duration={this.state.filmDuration}/>
                     </div>
                     <Tabs id='tabs'>
                         <div label="Chapters">
