@@ -18,9 +18,6 @@ export class UnderVideo extends React.Component {
      * @param momentToShare
      */
     handleClick(momentToShare) {
-        if (this.props.currentTime) {
-            return;
-        }
         this.props.onClick(this.props.currentTime);
     }
 
@@ -35,7 +32,8 @@ export class UnderVideo extends React.Component {
                         : "Loading..."
                 }</h3>
 
-                <button id='shareMoment' onClick={this.handleClick}>Share this moment</button>
+                <button id='shareMoment' onClick={() => this.handleClick(this.props.currentTime)}>Share this moment
+                </button>
             </div>
         );
     }

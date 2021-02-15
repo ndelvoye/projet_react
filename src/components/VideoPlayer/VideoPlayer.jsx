@@ -25,15 +25,6 @@ class VideoPlayer extends React.Component {
     }
 
     handleStateChange(state, prevState) {
-        const userHasPressPlayed = prevState.paused && !state.paused;
-        const userHasPressedPause = !prevState.paused && state.paused;
-
-        if (userHasPressPlayed) {
-        }
-
-        if (userHasPressedPause) {
-        }
-
         if (prevState.currentTime !== state.currentTime) {
             this.props.onChangeCurrentTime(state.currentTime);
         }

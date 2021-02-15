@@ -5,7 +5,7 @@ import * as PropTypes from "prop-types";
 class ChatBox extends React.Component {
     static propTypes = {
         isWsReady: PropTypes.bool.isRequired,
-        onClick: PropTypes.func.isRequired
+        onClick: PropTypes.func.isRequired,
     };
 
     constructor(props, context) {
@@ -13,7 +13,6 @@ class ChatBox extends React.Component {
         this.state = {
             senderName: "",
             messageToSend: "",
-            momentToShare: undefined
         }
     }
 
@@ -32,7 +31,7 @@ class ChatBox extends React.Component {
         const message = {
             name: this.state.senderName,
             message: this.state.messageToSend,
-            moment: (this.state.momentToShare !== -1) ? this.state.momentToShare : null
+            moment: this.props.sharingMoment,
         };
         this.props.ws.send(JSON.stringify(message));
     }
@@ -45,12 +44,19 @@ class ChatBox extends React.Component {
                         <ul>
                             {this.props.messages.map((message, index) => (
                                 <li key={index + message.message}>
-                                    <div className='msgAuthor'>{message.name}</div>
-                                    <div className='msgContent'>{message.message}</div>
+                                    <div className='msgDate'>
+                                        {new Date(message.when).getHours()}:{new Date(message.when).getMinutes()}:{new Date(message.when).getSeconds()}
+                                    </div>
+                                    <div className='msgAuthor'>
+                                        {message.name}
+                                    </div>
+                                    <div className='msgContent'>
+                                        {message.message}
+                                    </div>
+
                                     {message.moment !== null && isFinite(message.moment) &&
-                                    <div className='msgMoment'
-                                         onClick={() => this.handleClick(message.moment)}>
-                                        Go to {message.moment}
+                                    <div className='msgMoment' onClick={() => this.handleClick(message.moment)}>
+                                        Go to {Math.floor(message.moment)}
                                     </div>}
                                 </li>
                             ))}
@@ -78,7 +84,7 @@ class ChatBox extends React.Component {
                             <input
                                 type="text"
                                 placeholder={'No moment to share'}
-                                value={this.state.momentToShare}
+                                value={this.props.sharingMoment === undefined ? undefined : Math.floor(this.props.sharingMoment)}
                                 disabled
                             />
                             <input type="submit" value={'Send'}/>

@@ -13,6 +13,7 @@ export class App extends React.Component {
         this.state = {
             // Video Player
             currentTime: null,
+            timestamp: undefined,
 
             // API
             isDataLoaded: false,
@@ -32,7 +33,7 @@ export class App extends React.Component {
             messageFields: ["when", "name", "message", "moment"],
 
             // Chat infos
-            sharingMoment: null
+            sharingMoment: undefined
         }
     }
 
@@ -114,6 +115,7 @@ export class App extends React.Component {
                             <ChatBox ws={this.state.ws}
                                      isWsReady={this.state.connected}
                                      messages={this.state.messages}
+                                     sharingMoment={this.state.sharingMoment}
                                      onClick={this.handleChangeTimestamp}
                             />
                         </div>
