@@ -8,20 +8,17 @@ import VideoPlayer from "./components/VideoPlayer/VideoPlayer";
 import ChatBox from "./components/ChatBox/ChatBox";
 
 export class App extends React.Component {
-    wsURL = "wss://imr3-react.herokuapp.com";
-    ws = new WebSocket(this.wsURL);
-
     constructor(props, context) {
         super(props, context);
         this.state = {
             // Video Player
             currentTime: 0,
-            duration: undefined,
+            duration: null,
 
             // API
             isDataLoaded: false,
-            filmTitle: undefined,
-            synopsisUrl: undefined,
+            filmTitle: null,
+            synopsisUrl: null,
             chapters: [],
             chapterFields: ["pos", "title"],
             waypoints: [],
@@ -30,12 +27,13 @@ export class App extends React.Component {
             keywordsFields: ["pos", "data"],
 
             // WS
+            ws: null,
             connected: false,
             messages: [],
             messageFields: ["when", "name", "message", "moment"],
 
             // Chat infos
-            sharingMoment: undefined
+            sharingMoment: null
         }
     }
 
@@ -58,30 +56,7 @@ export class App extends React.Component {
                 })
             });
 
-        // WebSocket calls & events
-        this.ws.onopen = () => {
-            console.log("connected");
-            this.setState({
-                connected: true
-            });
-        };
-
-        this.ws.onmessage = evt => {
-            const messages = JSON.parse(evt.data);
-            messages.map(message => (
-                this.setState({
-                    messages: this.state.messages.concat(message)
-                }, this.scrollToBottom)
-            ));
-        }
-
-        this.ws.onclose = () => {
-            console.log("disconnected, reconnect.");
-            this.setState({
-                connected: false,
-                ws: new WebSocket(this.wsURL)
-            });
-        };
+        this.connectToWS();
     }
 
     // Handling Functions
@@ -131,7 +106,7 @@ export class App extends React.Component {
                             <Map/>
                         </div>
                         <div label="Chat">
-                            <ChatBox ws={this.ws}
+                            <ChatBox ws={this.state.ws}
                                      isWsReady={this.state.connected}
                                      messages={this.state.messages}
                                      onClick={this.handleChangeTimestamp}
@@ -141,6 +116,57 @@ export class App extends React.Component {
                 </div>
             </div>)
     }
+
+    connectToWS = () => {
+        const ws = new WebSocket("wss://imr3-react.herokuapp.com");
+        let that = this; // cache the this
+        let connectInterval;
+
+        ws.onopen = () => {
+            console.log("Connected to WS.");
+            this.setState({
+                ws: ws,
+                connected: true
+            });
+            that.timeout = 250; // reset timer to 250 on open of websocket connection
+            clearTimeout(connectInterval);
+        }
+
+        ws.onmessage = evt => {
+            const messages = JSON.parse(evt.data);
+            messages.map(message => (
+                this.setState({
+                    messages: this.state.messages.concat(message)
+                }, this.scrollToBottom)
+            ));
+        }
+
+        ws.onclose = () => {
+            console.log(`Disconnected from WS. Reconnect will be attempted in ${Math.min(10000 / 1000, (that.timeout + that.timeout) / 1000)} second(s)`
+            );
+
+            that.timeout = that.timeout + that.timeout; // increment retry interval
+            connectInterval = setTimeout(this.check, Math.min(10000, that.timeout)); // call check function after timeout
+        };
+
+        ws.onerror = err => {
+            console.error(
+                "Socket encountered error: ",
+                err.message,
+                "Closing socket"
+            );
+
+            ws.close();
+        };
+    }
+
+    /**
+     * Used by the function connectToWS to check if the connection is closed, if so, attempts to reconnect
+     */
+    check = () => {
+        const {ws} = this.state;
+        if (!ws || ws.readyState === WebSocket.CLOSED) this.connectToWS();
+    };
 }
 
 export default App;
