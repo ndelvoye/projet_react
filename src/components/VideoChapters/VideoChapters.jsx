@@ -1,6 +1,7 @@
 import React from 'react';
 import './VideoChapters.css';
 import * as PropTypes from "prop-types";
+import * as DateUtils from "../../utils/DateUtils";
 
 export class VideoChapters extends React.Component {
     static propTypes = {
@@ -25,7 +26,8 @@ export class VideoChapters extends React.Component {
                         {this.props.chapters.map((chapter, index) => (
                             <li key={index}
                                 onClick={() => this.handleClick(chapter.pos)}>
-                                <div className="chapterTimestamp">{chapter.formattedTimestamp}</div>
+                                <div
+                                    className="chapterTimestamp">{DateUtils.timestampToHoursMinutesSeconds(chapter.pos)}</div>
                                 <div className="chapterTitle">{chapter.title}</div>
                             </li>
                         ))}

@@ -15,7 +15,9 @@ class VideoPlayer extends React.Component {
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        this.player.seek(this.props.timestamp);
+        if (prevProps.timestamp !== this.props.timestamp) {
+            this.player.seek(this.props.timestamp);
+        }
 
         if (this.player) {
             this.player.subscribeToStateChange(

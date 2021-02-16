@@ -42,10 +42,6 @@ export class App extends React.Component {
         fetch('https://imr3-react.herokuapp.com/backend')
             .then((response) => response.json())
             .then((data) => {
-                // On ajoute un champ "formattedTimestamp" qui sera affiché côté front
-                data.Chapters.forEach(chapter => {
-                    chapter.formattedTimestamp = new Date(chapter.pos * 1000).toISOString().substr(11, 8)
-                })
                 this.setState({
                     isDataLoaded: true,
                     filmTitle: data.Film.title,

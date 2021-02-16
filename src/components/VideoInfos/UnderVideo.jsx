@@ -4,6 +4,10 @@ import './UnderVideo.css'
 import * as DateUtils from "../../utils/DateUtils";
 
 export class UnderVideo extends React.Component {
+    static defaultProps = {
+        currentTime: 0
+    };
+
     static propTypes = {
         // Static attributes
         filmTitle: PropTypes.string,
@@ -25,13 +29,11 @@ export class UnderVideo extends React.Component {
     render() {
         return (
             <div className="UnderVideo" data-testid="UnderVideo">
-                <h2>{this.props.filmTitle}</h2>
-
-                <h3>Current : {
-                    this.props.currentTime && this.props.currentTime > -1 ?
-                        DateUtils.timestampToHoursMinutesSeconds(this.props.currentTime)
-                        : "Loading..."
-                }</h3>
+                {/* eslint-disable-next-line react/jsx-no-target-blank */}
+                <h2>{this.props.filmTitle} <a href={this.props.synopsisUrl} target="_blank">
+                    <button>Go to synopsis</button>
+                </a></h2>
+                <h3>Current : {DateUtils.timestampToHoursMinutesSeconds(this.props.currentTime)}</h3>
 
                 <button id='shareMoment' onClick={() => this.handleClick(this.props.currentTime)}>Share this moment
                 </button>
