@@ -135,6 +135,9 @@ export class App extends React.Component {
                 ws: ws,
                 connected: true
             });
+            this.setState({
+                messages: []
+            }, this.scrollToBottom);
             that.timeout = 250; // reset timer to 250 on open of websocket connection
             clearTimeout(connectInterval);
         }

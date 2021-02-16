@@ -1,6 +1,7 @@
 import React from 'react';
 import './ChatBox.css';
 import * as PropTypes from "prop-types";
+import * as DateUtils from "../../utils/DateUtils";
 
 class ChatBox extends React.Component {
     static propTypes = {
@@ -43,20 +44,21 @@ class ChatBox extends React.Component {
                     <div id="messages">
                         <ul>
                             {this.props.messages.map((message, index) => (
-                                <li key={index + message.message}>
+                                <li key={index}>
                                     <div className='msgDate'>
-                                        {new Date(message.when).getHours()}:{new Date(message.when).getMinutes()}:{new Date(message.when).getSeconds()}
+                                        {DateUtils.timestampToHoursMinutes(message.when)}
                                     </div>
                                     <div className='msgAuthor'>
                                         {message.name}
                                     </div>
+                                    :
                                     <div className='msgContent'>
                                         {message.message}
                                     </div>
 
                                     {message.moment !== null && isFinite(message.moment) &&
                                     <div className='msgMoment' onClick={() => this.handleClick(message.moment)}>
-                                        Go to {Math.floor(message.moment)}
+                                        Go to {DateUtils.timestampToHoursMinutesSeconds(Math.floor(message.moment))}
                                     </div>}
                                 </li>
                             ))}
@@ -84,7 +86,7 @@ class ChatBox extends React.Component {
                             <input
                                 type="text"
                                 placeholder={'No moment to share'}
-                                value={this.props.sharingMoment === undefined ? undefined : Math.floor(this.props.sharingMoment)}
+                                value={this.props.sharingMoment === undefined ? undefined : DateUtils.timestampToHoursMinutesSeconds(Math.floor(this.props.sharingMoment))}
                                 disabled
                             />
                             <input type="submit" value={'Send'}/>

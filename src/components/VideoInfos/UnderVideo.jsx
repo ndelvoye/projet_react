@@ -1,6 +1,7 @@
 import React from "react";
 import * as PropTypes from "prop-types";
 import './UnderVideo.css'
+import * as DateUtils from "../../utils/DateUtils";
 
 export class UnderVideo extends React.Component {
     static propTypes = {
@@ -28,7 +29,7 @@ export class UnderVideo extends React.Component {
 
                 <h3>Current : {
                     this.props.currentTime && this.props.currentTime > -1 ?
-                        new Date(this.props.currentTime * 1000).toISOString().substr(11, 8)
+                        DateUtils.timestampToHoursMinutesSeconds(this.props.currentTime)
                         : "Loading..."
                 }</h3>
 

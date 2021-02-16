@@ -22,8 +22,8 @@ export class VideoChapters extends React.Component {
             return (
                 <div className="VideoChapters" data-testid="VideoChapters">
                     <ul>
-                        {this.props.chapters.map(chapter => (
-                            <li key={chapter.pos + chapter.title}
+                        {this.props.chapters.map((chapter, index) => (
+                            <li key={index}
                                 onClick={() => this.handleClick(chapter.pos)}>
                                 <div className="chapterTimestamp">{chapter.formattedTimestamp}</div>
                                 <div className="chapterTitle">{chapter.title}</div>

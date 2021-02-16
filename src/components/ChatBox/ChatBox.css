@@ -8,14 +8,16 @@ ul {
 }
 
 .msgDate {
-    font-style: italic;
     padding-right: 1vw;
 }
 
 .msgAuthor {
     font-weight: bold;
-    padding-right: 1vw;
     color: aquamarine;
+}
+
+.msgContent {
+    padding-left: 1vw;
 }
 
 .msgMoment {
