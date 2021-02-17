@@ -5,6 +5,7 @@ import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
+import * as PropTypes from "prop-types";
 
 let DefaultIcon = L.icon({
     iconUrl: icon,
@@ -14,6 +15,11 @@ let DefaultIcon = L.icon({
 L.Marker.prototype.options.icon = DefaultIcon;
 
 class Map extends React.Component {
+    static propTypes = {
+        isDataLoaded: PropTypes.bool.isRequired,
+        waypoints: PropTypes.arrayOf(String).isRequired,
+    };
+
     position = [51.505, -0.09]
 
     render() {

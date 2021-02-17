@@ -6,7 +6,7 @@ import * as DateUtils from "../../utils/DateUtils";
 export class VideoChapters extends React.Component {
     static propTypes = {
         isDataLoaded: PropTypes.bool.isRequired,
-        chapters: PropTypes.array.isRequired,
+        chapters: PropTypes.arrayOf(String).isRequired,
         onClick: PropTypes.func.isRequired
     };
 
@@ -24,7 +24,7 @@ export class VideoChapters extends React.Component {
                 <div className="VideoChapters" data-testid="VideoChapters">
                     <ul>
                         {this.props.chapters.map((chapter, index) => (
-                            <li key={index}
+                            <li key={chapter + index}
                                 onClick={() => this.handleClick(chapter.pos)}>
                                 <div
                                     className="chapterTimestamp">{DateUtils.timestampToHoursMinutesSeconds(chapter.pos)}</div>

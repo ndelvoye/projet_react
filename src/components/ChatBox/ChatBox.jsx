@@ -44,7 +44,7 @@ class ChatBox extends React.Component {
                     <div id="messages">
                         <ul>
                             {this.props.messages.map((message, index) => (
-                                <li key={index}>
+                                <li key={message + index}>
                                     <div className='msgDate'>
                                         {DateUtils.timestampToHoursMinutes(message.when)}
                                     </div>
@@ -86,7 +86,7 @@ class ChatBox extends React.Component {
                             <input
                                 type="text"
                                 placeholder={'No moment to share'}
-                                value={this.props.sharingMoment === undefined ? undefined : DateUtils.timestampToHoursMinutesSeconds(Math.floor(this.props.sharingMoment))}
+                                value={!this.props.sharingMoment ? 'No moment to share' : DateUtils.timestampToHoursMinutesSeconds(Math.floor(this.props.sharingMoment))}
                                 disabled
                             />
                             <input type="submit" value={'Send'}/>

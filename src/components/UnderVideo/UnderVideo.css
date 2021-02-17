@@ -1,0 +1,36 @@
+.UnderVideo {
+    padding-left: 1vw;
+}
+
+#filmInfos, #currentTime, #associatedTags {
+    display: flex;
+    align-items: center;
+}
+
+#shareMomentButton, #goToSynopsisButton {
+    border: 1px solid black;
+    border-radius: 50px;
+    height: 3vh;
+    background-color: aquamarine;
+    cursor: pointer;
+    margin-left: 2vw;
+}
+
+.videoTag {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid black;
+    border-radius: 50px;
+    width: 20vw;
+    height: 3vh;
+    padding: 0.5vh;
+    margin-left: 1vw;
+    text-overflow: ellipsis;
+    background-color: aquamarine;
+}
+
+.videoTag a:hover, a:visited, a:link, a:active {
+    color: black;
+    text-decoration: none;
+}

@@ -2,7 +2,7 @@ import React from 'react';
 import Tabs from "./components/Tabs/Tabs";
 import './App.css';
 import VideoChapters from "./components/VideoChapters/VideoChapters";
-import UnderVideo from "./components/VideoInfos/UnderVideo";
+import UnderVideo from "./components/UnderVideo/UnderVideo";
 import Map from "./components/Map/Map";
 import VideoPlayer from "./components/VideoPlayer/VideoPlayer";
 import ChatBox from "./components/ChatBox/ChatBox";
@@ -33,7 +33,7 @@ export class App extends React.Component {
             messageFields: ["when", "name", "message", "moment"],
 
             // Chat infos
-            sharingMoment: undefined
+            sharingMoment: null
         }
     }
 
@@ -44,14 +44,13 @@ export class App extends React.Component {
             .then((data) => {
                 this.setState({
                     isDataLoaded: true,
-                    filmTitle: data.Film.title,
-                    synopsisUrl: data.Film.synopsis_url,
-                    chapters: data.Chapters,
-                    waypoints: data.Waypoints,
-                    keywords: data.Keywords,
+                    filmTitle: data.Film.title, // UnderVideo
+                    synopsisUrl: data.Film.synopsis_url, // UnderVideo
+                    chapters: data.Chapters, // VideoChapters
+                    waypoints: data.Waypoints, // Map
+                    keywords: data.Keywords, // UnderVideo
                 })
             });
-
         this.connectToWS();
     }
 
@@ -94,6 +93,7 @@ export class App extends React.Component {
                         <UnderVideo filmTitle={this.state.filmTitle}
                                     synopsisUrl={this.state.synopsisUrl}
                                     currentTime={this.state.currentTime}
+                                    keywords={this.state.keywords}
                                     onClick={this.handleChangeSharingMoment}
                         />
                     </div>
@@ -105,7 +105,9 @@ export class App extends React.Component {
                             />
                         </div>
                         <div label="Map">
-                            <Map/>
+                            <Map isDataLoaded={this.state.isDataLoaded}
+                                 waypoints={this.state.waypoints}
+                            />
                         </div>
                         <div label="Chat">
                             <ChatBox ws={this.state.ws}
