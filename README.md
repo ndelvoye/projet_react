@@ -1,6 +1,6 @@
 Projet React
 ============================================================
-Réalisation d'une application Rich Media (multimédia, interactive & synchronisée) à l'aide de React - IMR3 - ENSSAT 2021
+Réalisation d'une application Rich Media (multimédia, interactive & synchronisée) à l'aide de React - Module Interfaces Riches - IMR3 - ENSSAT 2021
 
 But de l'application
 ---
