@@ -1,10 +1,17 @@
 .ChatBox {
     padding-left: 1vw;
+
 }
 
 ul {
     list-style: none;
     padding-left: 0;
+}
+
+#messages {
+    padding-right: 1vw;
+    overflow-y: scroll;
+    overflow-x: hidden;
 }
 
 .msgDate {
@@ -27,6 +34,36 @@ ul {
     padding-left: 1vw;
 }
 
-#messages {
-    overflow-y: scroll;
+#messageToSend {
+    width: 28vw;
+}
+
+#messageToSendForm {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex: 1 1 160px;
+    width: 28.5vw;
+    padding-top: 1vh;
+}
+
+#senderName {
+    width: 4vw;
+    height: 2vh;
+}
+
+#momentToShare {
+    max-width: 9vw;
+    overflow-wrap: break-word;
+}
+
+#messageToSendForm input[type='submit'] {
+    border: 1px solid black;
+    border-radius: 10px;
+    width: 5vw;
+    background-color: aquamarine;
+}
+
+textarea {
+    resize: none;
 }

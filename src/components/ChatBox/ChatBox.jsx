@@ -73,25 +73,27 @@ class ChatBox extends React.Component {
                         </ul>
                     </div>
                     <div id="messageToSend">
-                        <form action="."
+                        <form id="messageToSendForm" action="."
                               onSubmit={e => {
                                   e.preventDefault()
                                   this.sendMessageOnWS()
                                   this.setState({messageToSend: '', momentToShare: undefined})
                               }}>
                             <input
+                                id='senderName'
                                 type="text"
                                 placeholder={'Your username'}
                                 value={this.state.senderName}
                                 onChange={e => this.setState({senderName: e.target.value})}
                             />
-                            <input
-                                type="text"
+                            <textarea
+                                id='messageToSend'
                                 placeholder={'Enter message...'}
                                 value={this.state.messageToSend}
                                 onChange={e => this.setState({messageToSend: e.target.value})}
                             />
                             <input
+                                id='momentToShare'
                                 type="text"
                                 placeholder={'No moment to share'}
                                 value={!this.state.sharingMoment ? 'No moment to share' : DateUtils.timestampToHoursMinutesSeconds(Math.floor(this.state.sharingMoment))}
