@@ -90,7 +90,8 @@ export class App extends React.Component {
                         <VideoPlayer timestamp={this.state.timestamp}
                                      onChangeCurrentTime={this.handleChangeCurrentTime}
                         />
-                        <UnderVideo filmTitle={this.state.filmTitle}
+                        <UnderVideo isDataLoaded={this.state.isDataLoaded}
+                                    filmTitle={this.state.filmTitle}
                                     synopsisUrl={this.state.synopsisUrl}
                                     currentTime={this.state.currentTime}
                                     keywords={this.state.keywords}

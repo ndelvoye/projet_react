@@ -14,8 +14,16 @@ class ChatBox extends React.Component {
         this.state = {
             senderName: "ndelvoye",
             messageToSend: "",
+            sharingMoment: undefined
         }
     }
+
+    componentDidUpdate(prevProps, prevState) {
+        if (this.props.sharingMoment !== prevProps.sharingMoment) {
+            this.setState({sharingMoment: this.props.sharingMoment});
+        }
+    }
+
 
     /**
      * Sends desiredTimestamp to App component when clicking to moment shared by a user in the chat
@@ -32,9 +40,10 @@ class ChatBox extends React.Component {
         const message = {
             name: this.state.senderName,
             message: this.state.messageToSend,
-            moment: this.props.sharingMoment,
+            moment: this.state.sharingMoment,
         };
         this.props.ws.send(JSON.stringify(message));
+        this.setState({sharingMoment: undefined})
     }
 
     render() {
@@ -86,7 +95,7 @@ class ChatBox extends React.Component {
                             <input
                                 type="text"
                                 placeholder={'No moment to share'}
-                                value={!this.props.sharingMoment ? 'No moment to share' : DateUtils.timestampToHoursMinutesSeconds(Math.floor(this.props.sharingMoment))}
+                                value={!this.state.sharingMoment ? 'No moment to share' : DateUtils.timestampToHoursMinutesSeconds(Math.floor(this.state.sharingMoment))}
                                 disabled
                             />
                             <input type="submit" value={'Send'}/>
