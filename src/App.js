@@ -12,7 +12,7 @@ export class App extends React.Component {
         super(props, context);
         this.state = {
             // Video Player
-            currentTime: null,
+            currentTime: undefined,
             timestamp: undefined,
 
             // API
@@ -80,17 +80,19 @@ export class App extends React.Component {
 
     render() {
         return (
-            <div className='app'>
+            <div className='app' data-testid="App">
                 <div className='header'>
                     <img id="logo" alt="Logo IMRStreaming" src="img/logo.png"/>
                     <div id="headerText">Votre nouvelle plateforme de streaming</div>
                 </div>
                 <div className='content'>
                     <div className='video'>
-                        <VideoPlayer timestamp={this.state.timestamp}
+                        <VideoPlayer data-testid="VideoPlayer"
+                                     timestamp={this.state.timestamp}
                                      onChangeCurrentTime={this.handleChangeCurrentTime}
                         />
-                        <UnderVideo isDataLoaded={this.state.isDataLoaded}
+                        <UnderVideo data-testid="UnderVideo"
+                                    isDataLoaded={this.state.isDataLoaded}
                                     filmTitle={this.state.filmTitle}
                                     synopsisUrl={this.state.synopsisUrl}
                                     currentTime={this.state.currentTime}
@@ -100,20 +102,23 @@ export class App extends React.Component {
                     </div>
                     <Tabs id='tabs'>
                         <div label="Chapters">
-                            <VideoChapters isDataLoaded={this.state.isDataLoaded}
+                            <VideoChapters data-testid="VideoChapters"
+                                           isDataLoaded={this.state.isDataLoaded}
                                            chapters={this.state.chapters}
                                            onClick={this.handleChangeTimestamp}
                             />
                         </div>
                         <div label="Map">
-                            <Map isDataLoaded={this.state.isDataLoaded}
+                            <Map data-testid="Map"
+                                 isDataLoaded={this.state.isDataLoaded}
                                  waypoints={this.state.waypoints}
                                  currentTime={this.state.currentTime}
                                  onClick={this.handleChangeTimestamp}
                             />
                         </div>
                         <div label="Chat">
-                            <ChatBox ws={this.state.ws}
+                            <ChatBox data-testid="ChatBox"
+                                     ws={this.state.ws}
                                      isWsReady={this.state.connected}
                                      messages={this.state.messages}
                                      sharingMoment={this.state.sharingMoment}

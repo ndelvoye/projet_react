@@ -1,0 +1,61 @@
+[
+  {
+    "Film": {
+      "file_url": "fileUrl",
+      "title": "filmTitle",
+      "synopsis_url": "synopsisUrl"
+    },
+    "Chapters": [
+      {
+        "pos": "0",
+        "title": "Start"
+      },
+      {
+        "pos": "45",
+        "title": "Chapitre 2"
+      },
+      {
+        "pos": "117",
+        "title": "Chapitre 3"
+      }
+    ],
+    "Waypoints": [
+      {
+        "lat": "32.42",
+        "lng": "-90.13",
+        "label": "Place 1",
+        "timestamp": "45"
+      },
+      {
+        "lat": "38.90",
+        "lng": "-77.04",
+        "label": "Place 2",
+        "timestamp": "300"
+      }
+    ],
+    "Keywords": [
+      {
+        "pos": "0",
+        "data": [
+          {
+            "title": "Mot clef 1",
+            "url": "url de la page"
+          },
+          {
+            "title": "Mot clef 2",
+            "url": "url de la page"
+          }
+        ]
+      },
+      {
+        "pos": "117",
+        "data": [
+          {
+            "title": "Mot clef 3",
+            "url": "url de la page"
+          }
+        ]
+      }
+    ]
+  }
+]

@@ -24,7 +24,6 @@ class ChatBox extends React.Component {
         }
     }
 
-
     /**
      * Sends desiredTimestamp to App component when clicking to moment shared by a user in the chat
      * @param desiredTimestamp

@@ -5,7 +5,7 @@ import UnderVideo from './UnderVideo';
 
 describe('<UnderVideo />', () => {
   test('it should mount', () => {
-    render(<UnderVideo/>);
+    render(<UnderVideo onClick={() => alert('test')}/>);
 
     const underVideo = screen.getByTestId('UnderVideo');
 

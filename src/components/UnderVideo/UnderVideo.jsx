@@ -74,7 +74,9 @@ export class UnderVideo extends React.Component {
                 </div>
             )
         } else {
-            return <p>Loading...</p>
+            return (<div className="VideoChapters" data-testid="VideoChapters">
+                <p>Loading UnderVideo infos...</p>
+            </div>);
         }
     }
 }
