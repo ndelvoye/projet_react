@@ -108,6 +108,8 @@ export class App extends React.Component {
                         <div label="Map">
                             <Map isDataLoaded={this.state.isDataLoaded}
                                  waypoints={this.state.waypoints}
+                                 currentTime={this.state.currentTime}
+                                 onClick={this.handleChangeTimestamp}
                             />
                         </div>
                         <div label="Chat">

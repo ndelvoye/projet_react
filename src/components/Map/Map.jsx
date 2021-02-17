@@ -6,6 +6,7 @@ import 'leaflet/dist/leaflet.css';
 import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 import * as PropTypes from "prop-types";
+import * as DateUtils from '../../utils/DateUtils';
 
 let DefaultIcon = L.icon({
     iconUrl: icon,
@@ -18,26 +19,49 @@ class Map extends React.Component {
     static propTypes = {
         isDataLoaded: PropTypes.bool.isRequired,
         waypoints: PropTypes.arrayOf(String).isRequired,
+        currentTime: PropTypes.number.isRequired,
+        onClick: PropTypes.func.isRequired
     };
 
-    position = [51.505, -0.09]
+    /**
+     * Sends desiredTimestamp to App component
+     * @param desiredTimestamp
+     */
+    handleClick(desiredTimestamp) {
+        this.props.onClick(desiredTimestamp);
+    }
 
     render() {
-        return (
-            <div className="Map" data-testid="Map">
-                <MapContainer center={[51.505, -0.09]} zoom={13} scrollWheelZoom={false}>
-                    <TileLayer
-                        attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-                        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                    />
-                    <Marker position={[51.505, -0.09]}>
-                        <Popup>
-                            A pretty CSS3 popup. <br/> Easily customizable.
-                        </Popup>
-                    </Marker>
-                </MapContainer>
-            </div>
-        )
+        if (this.props.isDataLoaded) {
+            const lats = [].concat(...this.props.waypoints).map(({lat}) => parseFloat(lat));
+            const lngs = [].concat(...this.props.waypoints).map(({lng}) => parseFloat(lng));
+            const arrAvg = arr => arr.reduce((a, b) => a + b, 0) / arr.length
+
+            return (
+                <div className="Map" data-testid="Map">
+                    <MapContainer
+                        center={[arrAvg(lats), arrAvg(lngs)]}
+                        zoom={3} scrollWheelZoom={false}>
+                        <TileLayer
+                            attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                        />
+                        {this.props.waypoints.map((waypoint, index) => (
+                            <Marker key={waypoint + index}
+                                    position={[parseFloat(waypoint.lat), parseFloat(waypoint.lng)]}>
+                                <Popup>
+                                    {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+                                    <a onClick={() => this.handleClick(waypoint.timestamp)}>{DateUtils.timestampToHoursMinutesSeconds(waypoint.timestamp)}</a><br/>
+                                    {waypoint.label}
+                                </Popup>
+                            </Marker>
+                        ))}
+                    </MapContainer>
+                </div>
+            )
+        } else {
+            return <p>Loading...</p>;
+        }
     }
 }
 
