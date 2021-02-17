@@ -51,8 +51,12 @@ class Map extends React.Component {
                                     position={[parseFloat(waypoint.lat), parseFloat(waypoint.lng)]}>
                                 <Popup>
                                     {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-                                    <a onClick={() => this.handleClick(waypoint.timestamp)}>{DateUtils.timestampToHoursMinutesSeconds(waypoint.timestamp)}</a><br/>
-                                    {waypoint.label}
+                                    <a onClick={() => this.handleClick(waypoint.timestamp)}>
+                                        <div id='goToHref'>
+                                            {DateUtils.timestampToHoursMinutesSeconds(waypoint.timestamp)}
+                                        </div>
+                                        {waypoint.label}
+                                    </a>
                                 </Popup>
                             </Marker>
                         ))}

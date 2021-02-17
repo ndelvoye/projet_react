@@ -6,3 +6,13 @@
     width: 30vw;
     height: 75vh;
 }
+
+.leaflet-container a {
+    cursor: pointer;
+    color: black;
+}
+
+#goToHref {
+    color: aquamarine;
+    font-weight: bold;
+}

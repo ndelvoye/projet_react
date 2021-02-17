@@ -2,13 +2,20 @@
     padding-left: 1vw;
 }
 
+ul {
+    display: flex;
+    flex-direction: column;
+    height: 75vh;
+}
+
 li {
     display: flex;
     flex-direction: row;
+    padding-top: 1vh;
 }
 
 .chapterTimestamp {
-    color: dodgerblue;
+    color: aquamarine;
     font-weight: bold;
     cursor: pointer;
 }
